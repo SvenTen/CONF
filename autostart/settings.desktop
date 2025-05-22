@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Fix Keybindings and Animation Settings
+Exec=/home/jronnbla/.config/autostart/settings.sh
+Comment=Startup settings
+X-GNOME-Autostart-enabled=true
