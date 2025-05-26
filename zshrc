@@ -9,11 +9,6 @@ plugins=(git)
 # Load Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
-# Shell Options
-autoload -Uz compinit
-compinit
-setopt AUTO_CD
-
 # Environment Variables
 export EDITOR=nvim
 export VISUAL=nvim
@@ -45,7 +40,6 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 alias vim="nvim"
 alias zsh='vim ~/.zshrc'
 alias szsh='source ~/.zshrc'
-alias zel="$HOME/APPS/zellij/zellij"
 alias fl='ft_lock'
 alias q='yazi'
 alias norm='norminette -R Checkdefine && norminette -R CheckForbiddenSourceHeader'
