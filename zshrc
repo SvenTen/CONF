@@ -23,6 +23,7 @@ export PATH="$HOME/APPS:$PATH"
 export PATH="$HOME/APPS/nvim/bin:$PATH"
 export PATH="$HOME/APPS/sassc/bin:$PATH"
 export PATH="$HOME/APPS/gettext/bin:$PATH"
+export PATH="$HOME/.brew/bin:$PATH"
 
 # Library Paths
 export LD_LIBRARY_PATH="$HOME/APPS/gettext/lib:$LD_LIBRARY_PATH"
@@ -43,3 +44,7 @@ alias szsh='source ~/.zshrc'
 alias fl='ft_lock'
 alias q='yazi'
 alias norm='norminette -R Checkdefine && norminette -R CheckForbiddenSourceHeader'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

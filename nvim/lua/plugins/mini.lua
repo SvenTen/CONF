@@ -1,13 +1,23 @@
-local statusline = require("mini.statusline")
+-- ============================================================================
+-- Mini.nvim Configuration
+-- Collection of minimal useful plugins
+-- ============================================================================
 
--- Setup mini.ai for text objects
-require("mini.ai").setup({ n_lines = 500 })
+-- Text objects (enhanced a/i text objects)
+require("mini.ai").setup({ 
+  n_lines = 500 
+})
 
--- Setup mini.surround for surrounding text
+-- Surrounding text manipulation (add, delete, replace surroundings)
 require("mini.surround").setup()
 
--- Setup minimal statusline
-statusline.setup({ use_icons = vim.g.have_nerd_font })
+-- Minimal statusline
+local statusline = require("mini.statusline")
+statusline.setup({ 
+  use_icons = vim.g.have_nerd_font 
+})
+
+-- Customize location format
 statusline.section_location = function()
   return "%2l:%-2v"
 end

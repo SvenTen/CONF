@@ -1,3 +1,7 @@
+-- ============================================================================
+-- Monokai Pro Colorscheme Configuration
+-- ============================================================================
+
 local monokai = require("monokai-pro")
 
 monokai.setup({
@@ -30,7 +34,7 @@ monokai.setup({
   },
 })
 
--- Set the colorscheme
+-- Apply the colorscheme
 vim.cmd("colorscheme monokai-pro")
 
 

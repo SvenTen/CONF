@@ -25,10 +25,7 @@ return require("lazy").setup({
   git = {
     url_format = "git@github.com:%s.git"
   },
-  
-  {  
-	"ThePrimeagen/vim-be-good"
-  },
+
   -- ==========================================================================
   -- UI & THEMING
   -- ==========================================================================
@@ -61,7 +58,7 @@ return require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
-     },
+    },
     config = function()
       require("plugins.nvim-tree")
     end,

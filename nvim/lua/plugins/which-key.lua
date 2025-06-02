@@ -1,3 +1,8 @@
+-- ============================================================================
+-- Which-Key Configuration
+-- Shows keybinding hints and manages keymap documentation
+-- ============================================================================
+
 local wk = require("which-key")
 
 wk.setup({

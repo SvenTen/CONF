@@ -1,6 +1,15 @@
+-- ============================================================================
+-- Language Server Protocol (LSP) Configuration
+-- Provides code intelligence, diagnostics, and language-specific features
+-- ============================================================================
+
 ---@diagnostic disable: undefined-global
 
 local lspconfig = require("lspconfig")
+
+-- ============================================================================
+-- Diagnostic Configuration
+-- ============================================================================
 
 vim.diagnostic.config({
   severity_sort = true,
@@ -24,6 +33,22 @@ vim.diagnostic.config({
   },
   update_in_insert = false,
 })
+
+-- ============================================================================
+-- LSP Capabilities
+-- ============================================================================
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion = { dynamicRegistration = false }
+capabilities.textDocument.publishDiagnostics = {
+  relatedInformation = true,
+  tagSupport = { valueSet = { 1, 2 } },
+  versionSupport = false,
+}
+
+-- ============================================================================
+-- On Attach Function (Keymaps and Features)
+-- ============================================================================
 
 local function on_attach(client, bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -52,7 +77,7 @@ local function on_attach(client, bufnr)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
-  -- Document highlighting
+  -- Document highlighting helper function
   local function supports_document_highlight(current_client)
     if vim.fn.has("nvim-0.11") == 1 then
       return current_client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, bufnr)
@@ -61,6 +86,7 @@ local function on_attach(client, bufnr)
     end
   end
 
+  -- Setup document highlighting if supported
   if supports_document_highlight(client) then
     local highlight_group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
 
@@ -78,15 +104,10 @@ local function on_attach(client, bufnr)
   end
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion = { dynamicRegistration = false }
-capabilities.textDocument.publishDiagnostics = {
-  relatedInformation = true,
-  tagSupport = { valueSet = { 1, 2 } },
-  versionSupport = false,
-}
-
--- Enhanced clangd configuration
+-- ============================================================================
+-- Server Configurations
+-- ============================================================================
+-- Enhanced clangd configuration for C/C++
 local function setup_clangd()
   lspconfig.clangd.setup({
     on_attach = on_attach,
@@ -111,7 +132,22 @@ local function setup_clangd()
   })
 end
 
--- Setup servers
+-- ============================================================================
+-- Server Setup
+-- ============================================================================
+    },
+    init_options = {
+      usePlaceholders = true,
+      completeUnimported = true,
+      clangdFileStatus = true,
+    },
+    flags = {
+      debounce_text_changes = 150,
+    },
+  })
+end
+
+-- Try mason-lspconfig first, fallback to manual setup
 local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 if mason_lspconfig_ok then
   mason_lspconfig.setup_handlers({
@@ -140,10 +176,10 @@ if mason_lspconfig_ok then
     end,
   })
 else
-  -- Fallback: Ensure clangd is always configured
+  -- Fallback: Manual server setup
   setup_clangd()
 
-  -- Also setup lua_ls if needed
+  -- Setup lua_ls for Neovim configuration
   lspconfig.lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -158,6 +194,11 @@ else
   })
 end
 
+-- ============================================================================
+-- Auto Commands
+-- ============================================================================
+
+-- Notify when LSP attaches
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)

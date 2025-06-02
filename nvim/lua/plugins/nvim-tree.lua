@@ -1,7 +1,13 @@
-local nvim_tree = require("nvim-tree")
+-- ============================================================================
+-- Nvim-Tree Configuration
+-- File explorer tree for navigation and file management
+-- ============================================================================
 
+-- Disable netrw to avoid conflicts
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+local nvim_tree = require("nvim-tree")
 
 nvim_tree.setup({
   sort_by = "case_sensitive",
@@ -20,7 +26,7 @@ nvim_tree.setup({
     },
   },
   filters = {
-    dotfiles = false, 
+    dotfiles = false,
   },
   git = {
     enable = true,
@@ -37,5 +43,18 @@ nvim_tree.setup({
   },
 })
 
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fe", ":NvimTreeFocus<CR>", { noremap = true, silent = true })
+-- ============================================================================
+-- Keymaps
+-- ============================================================================
+
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { 
+  desc = "Toggle file explorer",
+  noremap = true, 
+  silent = true 
+})
+
+vim.keymap.set("n", "<leader>fe", ":NvimTreeFocus<CR>", { 
+  desc = "Focus file explorer",
+  noremap = true, 
+  silent = true 
+})
