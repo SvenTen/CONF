@@ -135,17 +135,6 @@ end
 -- ============================================================================
 -- Server Setup
 -- ============================================================================
-    },
-    init_options = {
-      usePlaceholders = true,
-      completeUnimported = true,
-      clangdFileStatus = true,
-    },
-    flags = {
-      debounce_text_changes = 150,
-    },
-  })
-end
 
 -- Try mason-lspconfig first, fallback to manual setup
 local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")

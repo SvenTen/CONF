@@ -37,14 +37,20 @@ export GETTEXT="$HOME/APPS/gettext"
 # Add Mason bin directory to PATH if not already included
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
+# Yazi wrapper function to change directory on exit
+function q() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 # Aliases
 alias vim="nvim"
 alias zsh='vim ~/.zshrc'
 alias szsh='source ~/.zshrc'
 alias fl='ft_lock'
-alias q='yazi'
 alias norm='norminette -R Checkdefine && norminette -R CheckForbiddenSourceHeader'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
